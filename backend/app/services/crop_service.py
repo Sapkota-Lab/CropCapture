@@ -1,11 +1,9 @@
-from app.schemas.crop_record import CropRecordCreate, CropRecordRead
+from app.schemas.harvest_record import HarvestRecordCreate, HarvestRecordRead
 
 
 class CropService:
-    def create(self, payload: CropRecordCreate) -> CropRecordRead:
-        # Replace with repository/db-backed create.
-        return CropRecordRead(id=1, **payload.model_dump())
+    def create(self, payload: HarvestRecordCreate, harvest_event_id: int) -> HarvestRecordRead:
+        return HarvestRecordRead(id=1, harvest_event_id=harvest_event_id, **payload.model_dump())
 
-    def list(self) -> list[CropRecordRead]:
-        # Replace with repository/db-backed read.
+    def list(self, harvest_event_id: int | None = None) -> list[HarvestRecordRead]:
         return []

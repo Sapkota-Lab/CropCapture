@@ -1,32 +1,34 @@
 export default function CropTable({ rows }) {
   return (
     <div className="panel table-wrap">
-      <h2>Crop Records</h2>
+      <h2>Harvest Records</h2>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Crop</th>
-            <th>Variety</th>
-            <th>Plot</th>
-            <th>Date</th>
-            <th>Height (cm)</th>
+            <th>SN</th>
+            <th>Genotype</th>
+            <th>Location</th>
+            <th>Harvest</th>
+            <th>Grade 1 Weight</th>
+            <th>Grade 1 Count</th>
           </tr>
         </thead>
         <tbody>
           {rows.length === 0 ? (
             <tr>
-              <td colSpan="6">No records yet.</td>
+              <td colSpan="7">No records yet.</td>
             </tr>
           ) : (
             rows.map((row) => (
               <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.crop_type}</td>
-                <td>{row.variety}</td>
-                <td>{row.plot_id}</td>
-                <td>{row.observation_date}</td>
-                <td>{row.height_cm ?? "-"}</td>
+                <td>{row.serial_number ?? "-"}</td>
+                <td>{row.genotype}</td>
+                <td>{row.location ?? "-"}</td>
+                <td>{row.harvest ?? "-"}</td>
+                <td>{row.grade_1_marketable_weight ?? "-"}</td>
+                <td>{row.grade_1_marketable_count ?? "-"}</td>
               </tr>
             ))
           )}

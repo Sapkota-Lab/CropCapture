@@ -1,16 +1,15 @@
 from fastapi import APIRouter
 
-from app.schemas.crop_record import CropRecordCreate, CropRecordRead
+from app.schemas.harvest_record import HarvestRecordCreate, HarvestRecordRead
 
 router = APIRouter()
 
 
-@router.post("/", response_model=CropRecordRead)
-def create_crop_record(payload: CropRecordCreate) -> CropRecordRead:
-    # Service/db wiring goes here when data model is finalized.
-    return CropRecordRead(id=1, **payload.model_dump())
+@router.post("/", response_model=HarvestRecordRead)
+def create_harvest_record(payload: HarvestRecordCreate, harvest_event_id: int) -> HarvestRecordRead:
+    return HarvestRecordRead(id=1, harvest_event_id=harvest_event_id, **payload.model_dump())
 
 
-@router.get("/", response_model=list[CropRecordRead])
-def list_crop_records() -> list[CropRecordRead]:
+@router.get("/", response_model=list[HarvestRecordRead])
+def list_harvest_records(harvest_event_id: int | None = None) -> list[HarvestRecordRead]:
     return []

@@ -1,12 +1,16 @@
 import { useState } from "react";
 
 const INITIAL_FORM = {
-  crop_type: "Tomato",
-  variety: "",
-  plot_id: "",
-  observation_date: "",
-  height_cm: "",
-  notes: ""
+  serial_number: "",
+  genotype: "",
+  location: "",
+  harvest: "",
+  grade_1_marketable_weight: "",
+  grade_1_marketable_count: "",
+  unmarketable_weight: "",
+  unmarketable_count: "",
+  sample_weight_marketable: "",
+  sample_weight_unmarketable: ""
 };
 
 export default function CropRecordForm({ onSubmit }) {
@@ -24,33 +28,49 @@ export default function CropRecordForm({ onSubmit }) {
 
   return (
     <form className="panel" onSubmit={handleSubmit}>
-      <h2>New Crop Record</h2>
+      <h2>New Harvest Record</h2>
       <div className="grid">
         <label>
-          Crop Type
-          <input name="crop_type" value={form.crop_type} onChange={handleChange} required />
+          Serial Number
+          <input name="serial_number" value={form.serial_number} onChange={handleChange} />
         </label>
         <label>
-          Variety
-          <input name="variety" value={form.variety} onChange={handleChange} required />
+          Genotype
+          <input name="genotype" value={form.genotype} onChange={handleChange} required />
         </label>
         <label>
-          Plot ID
-          <input name="plot_id" value={form.plot_id} onChange={handleChange} required />
+          Location
+          <input name="location" value={form.location} onChange={handleChange} />
         </label>
         <label>
-          Observation Date
-          <input name="observation_date" type="date" value={form.observation_date} onChange={handleChange} required />
+          Harvest
+          <input name="harvest" value={form.harvest} onChange={handleChange} />
         </label>
         <label>
-          Height (cm)
-          <input name="height_cm" type="number" step="0.1" value={form.height_cm} onChange={handleChange} />
+          Grade 1 Marketable Weight
+          <input name="grade_1_marketable_weight" type="number" step="0.01" min="0" value={form.grade_1_marketable_weight} onChange={handleChange} />
+        </label>
+        <label>
+          Grade 1 Marketable Count
+          <input name="grade_1_marketable_count" type="number" min="0" value={form.grade_1_marketable_count} onChange={handleChange} />
+        </label>
+        <label>
+          Unmarketable Weight
+          <input name="unmarketable_weight" type="number" step="0.01" min="0" value={form.unmarketable_weight} onChange={handleChange} />
+        </label>
+        <label>
+          Unmarketable Count
+          <input name="unmarketable_count" type="number" min="0" value={form.unmarketable_count} onChange={handleChange} />
+        </label>
+        <label>
+          20-Sample Marketable Weight
+          <input name="sample_weight_marketable" type="number" step="0.01" min="0" value={form.sample_weight_marketable} onChange={handleChange} />
+        </label>
+        <label>
+          20-Sample Unmarketable Weight
+          <input name="sample_weight_unmarketable" type="number" step="0.01" min="0" value={form.sample_weight_unmarketable} onChange={handleChange} />
         </label>
       </div>
-      <label>
-        Notes
-        <textarea name="notes" rows="3" value={form.notes} onChange={handleChange} />
-      </label>
       <button className="primary" type="submit">Save Record</button>
     </form>
   );

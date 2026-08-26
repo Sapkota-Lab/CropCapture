@@ -3,7 +3,7 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/crops.csv")
-def export_crops_csv() -> dict[str, str]:
+@router.get("/harvest-records.csv")
+def export_harvest_records_csv() -> dict[str, str]:
     # Placeholder for CSV streaming response.
     return {"message": "CSV export not implemented yet"}
