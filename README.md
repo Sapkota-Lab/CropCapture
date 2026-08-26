@@ -1,19 +1,91 @@
 # CropCapture
 
-CropCapture is a streamlined CRUD (Create, Read, Update, Delete) application designed for on-the-spot agricultural field data collection. Built with field researchers in mind, it allows for quick, reliable data entry out in the rows, and robust sorting and management capabilities once back in the office.
+CropCapture is a modular CRUD platform for agricultural field data collection and in-office querying.
 
-While primarily developed for tracking tomato crop metrics, CropCapture's flexible architecture allows it to easily scale and be applied to other crops, such as strawberries, or specific research focuses like seed morphology analysis.
+## Proposed Project Structure
 
-## Key Features
+```text
+CropCapture/
+	backend/
+		app/
+			api/v1/endpoints/
+			core/
+			db/
+			models/
+			schemas/
+			services/
+			main.py
+		tests/
+		requirements.txt
+		.env.example
+	frontend/
+		src/
+			components/
+			pages/
+			services/
+			App.jsx
+			main.jsx
+		package.json
+		.env.example
+	infra/
+		docker-compose.yml
+	docs/
+		architecture.md
+		decisions.md
+		open-questions.md
+```
 
-*   **Field-Ready Data Entry:** Quickly log crop data, physical traits, and field observations on the spot.
-*   **Office Data Management:** Easily sort, filter, and analyze records post-collection.
-*   **Adaptable Architecture:** Optimized for tomatoes, but fully adaptable to various agricultural subjects and measurement parameters.
+## What Each Folder Does
 
-## Getting Started
+### Top-level
 
-*(Installation, setup instructions, and tech stack details will be added as development progresses.)*
+- `backend/`: FastAPI application code, API contracts, business logic, and tests.
+- `frontend/`: React user interface for field entry and in-office querying.
 
-## Usage
+### Backend (`backend/app`)
 
-*(Detailed usage guidelines to come.)*
+- `api/`: HTTP layer. Defines routes and request/response wiring.
+- `api/v1/endpoints/`: Versioned endpoint modules (health, auth, crops, exports).
+- `core/`: Cross-cutting app concerns like config and security helpers.
+- `db/`: SQLAlchemy base and database session lifecycle.
+- `models/`: ORM table/entity definitions for persistence.
+- `schemas/`: Pydantic request/response models for validation and serialization.
+- `services/`: Business logic layer called by endpoints.
+- `main.py`: FastAPI app factory and router registration.
+
+### Other Backend Files
+
+- `backend/tests/`: Backend test suite.
+- `backend/requirements.txt`: Python dependency list.
+- `backend/.env.example`: Example backend environment variables.
+
+### Frontend (`frontend/src`)
+
+- `components/`: Reusable UI pieces used across pages.
+- `pages/`: Screen-level route/view composition.
+- `services/`: API client functions and data fetching logic.
+- `App.jsx`: App shell and high-level view orchestration.
+- `main.jsx`: Frontend entry point and React bootstrap.
+
+## Current Skeleton Endpoints
+
+- `GET /api/v1/health`
+- `POST /api/v1/auth/login` (placeholder)
+- `POST /api/v1/crops/` (stub)
+- `GET /api/v1/crops/` (stub)
+- `GET /api/v1/exports/crops.csv` (placeholder)
+
+## Architecture Notes
+
+- Keep route handlers thin. Move business logic into `backend/app/services`.
+- Keep persistence concerns in models/session and avoid DB calls in frontend.
+- API versioning starts at `v1` for compatibility as requirements evolve.
+
+## Next Implementation Steps
+
+1. Finalize auth approach (OAuth vs local JWT user system).
+2. Confirm ORM and migration workflow (SQLAlchemy + Alembic recommended).
+3. Implement repository and service logic for real crop CRUD.
+4. Add filtering/sorting/pagination for query workflows.
+5. Implement CSV export with streaming response.
+6. Add offline/low-connectivity strategy if required for field usage.
