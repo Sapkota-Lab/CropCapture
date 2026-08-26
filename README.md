@@ -17,7 +17,6 @@ CropCapture/
 			main.py
 		tests/
 		requirements.txt
-		.env.example
 	frontend/
 		src/
 			components/
