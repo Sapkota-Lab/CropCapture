@@ -99,20 +99,15 @@ Represents one row of measurements collected during a harvest event. For the Lex
 
 Typical fields:
 
-- `id`
+- `id` (primary key)
 - `harvest_event_id` (foreign key to `HarvestEvent`)
-- `serial_number`
-- `genotype`
-- `location`
-- `harvest`
-- `grade_1_marketable_weight`
-- `grade_1_marketable_count`
-- `unmarketable_weight`
-- `unmarketable_count`
-- `sample_weight_marketable`
-- `sample_weight_unmarketable`
+- `field_name`
+- `year`
+- `record_date`
+- `plot_number`
+- `dynamic_data` (PostgreSQL `JSONB` for year- or plot-specific measurements)
 
-Measurement fields are optional so another field can record fewer values without requiring a separate database table immediately. If future fields introduce entirely new measurement types, a separate flexible measurements table can be added later.
+The four identifying fields are typed columns so they can be indexed and filtered efficiently. Measurement fields belong in `dynamic_data`, allowing collection templates to change without a schema change. Existing databases need a migration that adds the four identifying columns, creates the `dynamic_data` JSONB column, and removes or backfills the old measurement columns.
 
 ## Current Skeleton Endpoints
 
