@@ -6,29 +6,27 @@ export default function CropTable({ rows }) {
         <thead>
           <tr>
             <th>ID</th>
-            <th>SN</th>
-            <th>Genotype</th>
-            <th>Location</th>
-            <th>Harvest</th>
-            <th>Grade 1 Weight</th>
-            <th>Grade 1 Count</th>
+            <th>Field Name</th>
+            <th>Year</th>
+            <th>Date</th>
+            <th>Plot Number</th>
+            <th>Dynamic Fields</th>
           </tr>
         </thead>
         <tbody>
           {rows.length === 0 ? (
             <tr>
-              <td colSpan="7">No records yet.</td>
+              <td colSpan="6">No records yet.</td>
             </tr>
           ) : (
             rows.map((row) => (
               <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.serial_number ?? "-"}</td>
-                <td>{row.genotype}</td>
-                <td>{row.location ?? "-"}</td>
-                <td>{row.harvest ?? "-"}</td>
-                <td>{row.grade_1_marketable_weight ?? "-"}</td>
-                <td>{row.grade_1_marketable_count ?? "-"}</td>
+                <td>{row.field_name}</td>
+                <td>{row.year}</td>
+                <td>{row.record_date}</td>
+                <td>{row.plot_number}</td>
+                <td>{JSON.stringify(row.dynamic_data)}</td>
               </tr>
             ))
           )}

@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, func
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, String, func
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -11,14 +12,9 @@ class HarvestRecord(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     harvest_event_id: Mapped[int] = mapped_column(ForeignKey("harvest_events.id"), index=True)
-    serial_number: Mapped[str | None] = mapped_column(String(64), nullable=True)
-    genotype: Mapped[str] = mapped_column(String(128), index=True)
-    location: Mapped[str | None] = mapped_column(String(128), nullable=True)
-    harvest: Mapped[str | None] = mapped_column(String(64), nullable=True)
-    grade_1_marketable_weight: Mapped[float | None] = mapped_column(Float, nullable=True)
-    grade_1_marketable_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    unmarketable_weight: Mapped[float | None] = mapped_column(Float, nullable=True)
-    unmarketable_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    sample_weight_marketable: Mapped[float | None] = mapped_column(Float, nullable=True)
-    sample_weight_unmarketable: Mapped[float | None] = mapped_column(Float, nullable=True)
+    field_name: Mapped[str] = mapped_column(String(128), index=True)
+    year: Mapped[int] = mapped_column(Integer, index=True)
+    record_date: Mapped[date] = mapped_column(Date, index=True)
+    plot_number: Mapped[str] = mapped_column(String(64), index=True)
+    dynamic_data: Mapped[dict] = mapped_column(JSONB, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
